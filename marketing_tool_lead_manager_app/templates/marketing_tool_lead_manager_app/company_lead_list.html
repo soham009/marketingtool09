@@ -1,0 +1,117 @@
+{% extends 'marketing_tool_lead_manager_app/base_b2b.html' %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block headscript %}
+
+{% endblock headscript %}
+
+{% block content %}
+<div>
+        <h4>All Routes</h4>
+        <hr>
+        <table id="myTable" class="display" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Kruze Rep</th>
+                    <th>Locality</th>
+                    <th>Corporate Hub</th>
+                    <th>Company Name</th>
+                    <th>Employee strength</th>
+                    <th>Login Time</th>
+                    <th>Logout Time</th>
+                    <th>Contact Person</th>
+                    <th>Contact Person Designation</th>
+                    <th>Contact Number</th>
+                    <th>Email ID</th>
+                </tr>
+                <tr>
+                        <th>Sr No.</th>
+                        <th>Kruze Rep</th>
+                        <th>Locality</th>
+                        <th>Corporate Hub</th>
+                        <th>Company Name</th>
+                        <th>Employee strength</th>
+                        <th>Login Time</th>
+                        <th>Logout Time</th>
+                        <th>Contact Person</th>
+                        <th>Contact Person Designation</th>
+                        <th>Contact Number</th>
+                        <th>Email ID</th>
+                    </tr>
+                </thead>
+            <tbody>
+                {% for lead in leads %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ lead.company_leads_added_by.username }}</td>
+                    <td>{{lead.company_leads_pickup_location_id.Location_Name}}</td>
+                    <td>{{lead.company_leads_corporate_hub}}</td>
+                    <td>{{lead.company_leads_company_name}}</td>
+                    <td>{{lead.company_leads_employee_strength}}</td>
+                    <td>{{lead.company_leads_login_time}}</td>
+                    <td>{{lead.company_leads_logout_time}}</td>
+                    <td>{{lead.company_leads_contact_person}}</td>
+                    <td>{{lead.company_leads_designation}}</td>
+                    <td>{{lead.company_leads_contact_mobile}}</td>
+                    <td>{{lead.company_leads_contact_email}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+                    <tr>
+                            <th>Sr No.</th>
+                            <th>Kruze Rep</th>
+                            <th>Locality</th>
+                            <th>Corporate Hub</th>
+                            <th>Company Name</th>
+                            <th>Employee strength</th>
+                            <th>Login Time</th>
+                            <th>Logout Time</th>
+                            <th>Contact Person</th>
+                            <th>Contact Person Designation</th>
+                            <th>Contact Number</th>
+                            <th>Email ID</th>
+                        </tr>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                "lengthMenu": [
+                    [-1],
+                    ["All"]
+                ],
+                initComplete: function() {
+                    this.api().columns().every(function() {
+                        var column = this;
+                        var select = $('<select><option value=""></option></select>')
+                            .appendTo($(column.header()).empty())
+                            .on('change', function() {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function(d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends 'marketing_tool_lead_manager_app/base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+{% endblock stylesheets %}
+
+{% block headscript %}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+{% endblock headscript %}
+
+{% block content %}
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+
+<div>
+  <h4>Portal Users<span style="float: right"><button class="signup-btn btn btn-info" type="button" name="button">Click here to Add New user</button></span></h4>
+    <hr>
+        <table id="myTable" class="display" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>User Role</th>
+                    <th>Edit Details</th>
+                    <th>Delete</th>
+                </tr>
+                <tr>
+                    <th>User ID</th>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>User Role</th>
+                    <th>Edit Details</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{user.pk}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>
+                    {% if user.role == 2 %}
+                    Admin
+                    {% else %}
+                    Team User
+                    {% endif %}
+                    </td>
+                   <td> <center><button type="button" class="update-user btn btn-sm btn-primary" data-id={% url 'marketing_tool_lead_manager_app:update_user' user.pk  %}>
+                                <span class="fa fa-edit"></span>
+                            </button></center></td>
+                 <td><center><button class="delete-user btn btn-sm btn-danger" data-id="{% url 'marketing_tool_lead_manager_app:delete_user' user.pk %}">
+                <span class="fa fa-trash"></span></button></center></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% comment %} <tfoot>
+                <tr>
+                    <th>User ID</th>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>User Role</th>
+                    <th>Edit Details</th>
+                    <th>Delete</th>
+                </tr>
+            </tfoot> {% endcomment %}
+        </table>
+    </div>
+{% endblock %}
+
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+{% block script %}
+
+{% endblock %}
+{% block extrascript %}
+<script>
+	$(document).ready(function() {
+		$('#myTable').DataTable({
+			orderCellsTop: true,
+			fixedHeader: true,
+			"lengthMenu": [
+				[-1],
+				["All"]
+			],
+			initComplete: function() {
+				this.api().columns().every(function() {
+					var column = this;
+					var select = $('<select><option value=""></option></select>')
+						.appendTo($(column.header()).empty())
+						.on('change', function() {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+							);
+
+							column
+								.search(val ? '^' + val + '$' : '', true, false)
+								.draw();
+						});
+
+					column.data().unique().sort().each(function(d, j) {
+						select.append('<option value="' + d + '">' + d + '</option>')
+					});
+				});
+			}
+		});
+	});
+
+</script>
+<script type="text/javascript">
+    $(function() {
+        $(".signup-btn").modalForm({formURL: "{% url 'marketing_tool_lead_manager_app:Add_new_user' %}"});
+        $(".update-user").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete-user").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".read-location").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+{% endblock %}

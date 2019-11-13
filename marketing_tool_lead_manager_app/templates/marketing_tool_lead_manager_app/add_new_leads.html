@@ -1,0 +1,114 @@
+<div class="modal fade" id="add_status" tabindex="-1" role="dialog" aria-labelledby="add_statusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lead_satus_modal">Add Lead Status</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form action="{% url 'marketing_tool_lead_manager_app:add_new_lead_status' leads.pk %}" method="post">
+
+                    {% csrf_token %}
+                    <div>
+                        <div>
+                            <label for="Lead Status Id">Lead Status Id</label> 
+                            {% if leads %} 
+                            <!-- <input type="text" class="form-control" id="lead_status_id" name="lead_status_id" value="{{ uncontacted.pk }}" min="1"> --> 
+                             <select class="form-control" id="lead_comment_id" name="lead_comment_id">
+                                <option value="{{ leads.pk }}">{{ leads.pk }}</option>
+                            </select>
+
+                              {% endif %} 
+                        </div>
+                        <div>
+                            <label for="Lead status updated by">Status Updated By</label>
+                            <!-- <input type="text" class="form-control" id="lead_status_updated_by" name="lead_status_updated_by"> -->
+                            <select class="form-control" id="lead_comment_updated_by" name="lead_comment_updated_by">
+                                    {% if user.is_authenticated %}
+                                <option value="{{ user.pk }}">{{ user.username }}</option>
+                                {% endif %}
+                                 </select>
+
+                        <br>
+                        <div>
+                            <label for="Lead Satus Name">Satus Name</label>
+                            <select class="form-control" id="lead_comment_name" name="lead_comment_name">
+                                <option value="Uncontacted">Uncontacted</option>
+                                <option value="Interested">Interested</option>
+                                <option value="Undecided">Undecided</option>
+                                <option value="Converted">Converted</option>
+                                <!-- <option value="File logged">File logged</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Disburse">Disburse</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Approved but not disburse">Approved but not disburse</option>
+                                <option value="Not interested">Not interested</option> -->
+                            </select>
+                        </div>
+                        <br>
+                        <div>
+                            <label for="lead_comment_create_date">Lead status create_date</label>
+                            <input type="date" class="form-control" id="lead_comment_create_date" name="lead_comment_create_date">
+                        </div>
+                        <div>
+                            <label for="Lead Status Remark">Remark</label>
+                            <textarea class="form-control" id="lead_comment_remark" name="lead_comment_remark"></textarea>
+                        </div>
+                        <br>
+
+                        </div>
+                        <br>
+                        <div>
+                            <label for="Lead status Product Interested In">Product Interested In</label>
+                            <div class="form-group">
+                                <select class="form-control" id="lead_comment_product_interested_in" name="lead_comment_product_interested_in">
+                                    <option value="Nodal Service">Nodal Service</option>
+                                    <option value="Hub Cab">Hub Cab</option>
+                                    <option value="Others">Others</option>
+                                    <!-- <option value="Loans Against Property">Loans Against Property</option>
+                                    <option value="Balance Transfer">Balance Transfer</option>
+                                    <option value="Credit Cards">Credit Cards</option> -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div>
+                            <label for="Lead status followup date">Lead status followup date</label>
+                            <input type="date" class="form-control" id="lead_comment_next_followup_date" name="lead_comment_next_followup_date">
+                        </div>
+                        <!-- <div>
+                            <label for="Lead status updated by">Status Updated By</label>
+                            <input type="text" class="form-control" id="lead_status_updated_by" name="lead_status_updated_by">
+                            <select class="form-control" id="lead_status_updated_by" name="lead_status_updated_by">
+                                    {% if user.is_authenticated %}
+                                <option value="{{ user.username }}">{{ user.username }}</option>
+                                {% endif %}
+                                 </select>
+
+                        </div> -->
+                        {% comment %} <div>
+                            <label for="lead_comment_updated">Updated</label>
+                            <input type="date" class="form-control" id="lead_comment_updated" name="lead_comment_updated">
+                        </div>
+                        <div>
+                            <label for="lead_comment_Created_at">Created_at</label>
+                            <input type="date" class="form-control" id="lead_comment_Created_at" name="lead_comment_Created_at">
+                        </div>
+                        <div>
+                            <label for="lead_comment_Updated_at">Updated_at</label>
+                            <input type="date" class="form-control" id="lead_comment_Updated_at" name="lead_comment_Updated_at">
+                        </div> {% endcomment %}
+                    </div>
+                    <br>
+                    <br>
+                    <button type="submit" class="submit-btn btn btn-primary">Add</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+{% extends 'marketing_tool_lead_manager_app/base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block headscript %}
+	<!--Script Reference[1]-->
+	<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+	<style>
+		zing-grid[loading] {
+			height: 367px;
+		}
+
+	</style>
+{% endblock headscript %}
+
+{% block content %}
+
+	<!--Grid Component Placement[2]-->
+	<zing-grid columns-control draggable layout-controls pager page-size="10" page-size-options="2,4,8" search sort filter viewport-stop src="http://localhost:8019/leads_mumbai_api">
+		<zg-caption>
+            <p> All Mumbai Leads</p>
+        </zg-caption>
+<zg-colgroup>
+			<zg-column index="CompanyName"></zg-column>
+            <zg-column index="Name"></zg-column>
+            <zg-column index="EmailId"></zg-column>
+            <zg-column index="ContactNo"></zg-column>
+            <zg-column index="Pickup_Location_id"></zg-column>
+            <zg-column index="Drop_Location_id"></zg-column>
+            <zg-column index="Login_Time_id"></zg-column>
+			<zg-column index="Logout_Time_id"></zg-column>
+		</zg-colgroup>
+	</zing-grid>
+	<script>
+		// window.onload event for Javascript to run after HTML
+		// because this Javascript is injected into the document head
+		window.addEventListener('load', () => {
+			// content after DOM load
+		});
+
+{% endblock %}

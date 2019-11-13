@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ZingGrid: Blank Grid</title>
+    <style>
+    body {
+  background:#ffffff;
+	font-family: 'Work Sans', sans-serif;
+  padding-top: 20px;
+}
+
+.logo {
+  text-align: center;
+  margin: 0 auto;
+  width: 100px;
+}
+
+.first-headline {
+  text-align: left;
+  font-size: 30px;
+  margin: 0 auto;
+  border-bottom: 3px solid black;
+  max-width: 1000px;
+  padding-bottom: 10px;
+}
+
+.link-list {
+  max-width: 960px;
+  margin: 0 auto 40px auto;
+  text-align: left;
+}
+.link-list li {
+  list-style-type: none;
+  border-bottom: 1px solid #eeeeee;
+  padding: 15px 0;
+  margin-left: -40px;
+}
+.link-list a {
+  color: #D2372D;
+  font-size: 14px;
+  text-decoration: none;
+}
+.link-list a:hover {
+  color: #414141;
+}
+
+hr {
+  margin: 50px 0 30px 0;
+  border-bottom: 0;
+  border-top: 1px solid #eeeeee;
+}
+zing-grid {
+  max-width: 1000px;
+  margin: 20px auto;
+  background: none;
+  border: 0;
+  font-size: 12px;
+  font-family: 'Work Sans', sans-serif;
+}
+
+zg-caption {
+  background: none;
+  color: #000000;
+  text-align: left;
+  padding-left: 0;
+}
+zg-caption h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+zg-caption p {
+  font-size: 13px;
+  margin-top: 0;
+}
+zg-head {
+  background: none;
+  border-bottom: 3px solid #414141;
+}
+zg-head-cell {
+  font-size: 11px;
+  background: none;
+  font-weight: bold;
+  background: white;
+  align-items: flex-end;
+  padding-bottom: 10px;
+}
+zg-row, zg-cell {
+  padding: 0 15px;
+  height: 35px;
+}
+zg-column:first-child zg-cell {
+  font-weight: bold;
+}
+.null {
+  color: #cccccc;
+}
+
+zg-foot zg-cell {
+  background: white;
+  padding-top: 15px;
+}
+
+zg-foot zg-row,
+zg-foot zg-row zg-cell{ height:42px; line-height:42px; align-items:flex-end;}
+
+zg-footer {
+  background: white;
+  align-items: middle;
+  margin-top: 15px;
+}
+zg-footer a {
+  color: #D2372D;
+}
+zg-footer a:hover {
+  color: #414141;
+}
+
+zg-filter select {
+  margin: 0 auto;
+}
+    </style>
+	 	<link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700" rel="stylesheet">
+	  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+  </head>
+  <body>
+    <h1 class="first-headline">Backblaze 2018 Harddrive Stats</h1>
+    <zing-grid
+      src="https://zinggrid-examples.firebaseio.com/2018-harddrive-stats/0/2018AnnualizedHardDriveFailureRates"
+      sort
+      filter
+      layout="row"
+      layout-controls="disabled"
+			>
+    	<zg-caption>
+        <h1>2018 Annualized Hard Drive Failure Rates</h1>
+        <p>Reporting Period: 1/1/2018 - 12/31/2018 inclusive</p>
+        <a href="https://www.backblaze.com/" target="_blank" crossorigin><img src="https://firebasestorage.googleapis.com/v0/b/zinggrid-examples.appspot.com/o/2018-harddrive-stats%2Fbackblaze-logo.png?alt=media&token=a6605aa0-15d0-4c58-a9b1-e49df993e188" alt="Backblaze logo" width="100" align="right" style="display:inline; margin-top: -64px;"></a>
+      </zg-caption>
+      	<zg-colgroup>
+          <zg-column index="mfg" header="MFG" type="select" type-select-options="HGST, Seagate, Toshiba, WDC"></zg-column>
+          <zg-column index="model"></zg-column>
+          <zg-column index="driveSize" type="number" foot-cell="sum">
+            [[index.driveSize]] TB
+          </zg-column>
+          <zg-column index="driveCount" type="number" foot-cell="sum" filter="disabled"></zg-column>
+          <zg-column index="driveDays" type="number" foot-cell="sum" filter="disabled"></zg-column>
+          <zg-column index="failures" type="number" foot-cell="sum" filter="disabled"></zg-column>
+          <zg-column index="annualizedFailureRate" type="number" foot-cell="sum" filter="disabled">
+            [[index.annualizedFailureRate]]%
+          </zg-column>
+      </zg-colgroup>
+      <zg-footer>
+        <p style="display:inline;">Source: <a href="https://www.backblaze.com/blog/hard-drive-stats-for-2018/" target="_blank" crossorigin>Backblaze Hard Drive Stats for 2018</a></p>
+      </zg-footer>
+    </zing-grid>
+
+    <hr>
+
+    <zing-grid
+      src="https://zinggrid-examples.firebaseio.com/2018-harddrive-stats/1/annualizedHardDriveFailureRatesByYear"
+      sort
+      filter
+      layout="row"
+      layout-controls="disabled"
+      >
+    	<zg-caption>
+        <h1>Annualized Hard Drive Failure Rates by Year</h1>
+        <p>Reporting Periods – 2016:(1/1 - 12/31), 2017:(1/1 - 12/31)</p>
+        <a href="https://www.backblaze.com/" target="_blank" crossorigin><img src="https://firebasestorage.googleapis.com/v0/b/zinggrid-examples.appspot.com/o/2018-harddrive-stats%2Fbackblaze-logo.png?alt=media&token=a6605aa0-15d0-4c58-a9b1-e49df993e188" alt="Backblaze logo" width="100" align="right" style="display:inline; margin-top: -64px;"></a>
+      </zg-caption>
+      	<zg-colgroup>
+          <zg-column index="mfg" header="MFG" type="select" type-select-options="HGST, Seagate, Toshiba, WDC"></zg-column>
+          <zg-column index="model"></zg-column>
+          <zg-column index="driveSize" type="number">
+            [[index.driveSize]] TB
+          </zg-column>
+          <zg-column index="2016.driveCount" renderer="renderNull" type="number" filter="disabled"></zg-column>
+          <zg-column index="2016.annualizedFailureRate" renderer="renderNull" type="number" filter="disabled"></zg-column>
+          <zg-column index="2017.driveCount" renderer="renderNull" filter="disabled"></zg-column>
+          <zg-column index="2017.annualizedFailureRate" renderer="renderNull" type="number" filter="disabled"></zg-column>
+          <zg-column index="2018.driveCount" renderer="renderNull" filter="disabled"></zg-column>
+          <zg-column index="2018.annualizedFailureRate" renderer="renderNull" type="number" filter="disabled"></zg-column>
+      </zg-colgroup>
+      <zg-footer>
+        <p style="display:inline;">Source: <a href="https://www.backblaze.com/blog/hard-drive-stats-for-2018/" target="_blank" crossorigin>Backblaze Hard Drive Stats for 2018</a></p>
+      </zg-footer>
+    </zing-grid>
+
+    <hr>
+
+    <zing-grid
+      src="https://zinggrid-examples.firebaseio.com/hard-drive-stats-for-2018/2/annualizedHardDriveFailureRatesForActiveDrives"
+      sort
+      filter
+      layout="row"
+      layout-controls="disabled"
+			>
+    	<zg-caption>
+        <h1>Annualized Hard Drive Failure Rates for Active Drives</h1>
+        <p>Reporting Period: 4/20/2013 through 12/31/2018 for drive models active as of 12/31/2018</p>
+        <a href="https://www.backblaze.com/" target="_blank" crossorigin><img src="https://firebasestorage.googleapis.com/v0/b/zinggrid-examples.appspot.com/o/2018-harddrive-stats%2Fbackblaze-logo.png?alt=media&token=a6605aa0-15d0-4c58-a9b1-e49df993e188" alt="Backblaze logo" width="100" align="right" style="display:inline; margin-top: -64px;"></a>
+      </zg-caption>
+      	<zg-colgroup>
+          <zg-column index="mfg" header="MFG" type="select" type-select-options="HGST, Seagate, Toshiba, WDC"></zg-column>
+          <zg-column index="model"></zg-column>
+          <zg-column index="driveSize" type="number" foot-cell="sum">
+            [[index.driveSize]] TB
+          </zg-column>
+          <zg-column index="maximumDriveCount" type="number" foot-cell="sum" filter="disabled"></zg-column>
+          <zg-column index="totalDriveDays" type="number" foot-cell="sum" filter="disabled"></zg-column>
+          <zg-column index="totalFailures" type="number" foot-cell="sum" filter="disabled"></zg-column>
+          <zg-column index="annualizedFailureRate" type="number" foot-cell="sum" filter="disabled">
+            [[index.annualizedFailureRate]]%
+          </zg-column>
+      </zg-colgroup>
+      <zg-footer>
+        <p style="display:inline;">Source: <a href="https://www.backblaze.com/blog/hard-drive-stats-for-2018/" target="_blank" crossorigin>Backblaze Hard Drive Stats for 2018</a></p>
+      </zg-footer>
+    </zing-grid>
+    <script>
+    function renderNull(value) {
+  if(value == null) {
+    return `N/A`;
+  } else {
+    return `${value}`;
+	}
+}
+
+
+// window.onload event for Javascript to run after HTML
+// because this Javascript is injected into the document head
+window.addEventListener('load', () => {
+  // Javascript code to execute after DOM content
+});
+    </script>
+   </body>
+</html>

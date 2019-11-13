@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Jewel Theme">
+	<meta name="description" content="Wheel - Responsive and Modern Car Rental Website Template">
+	<meta name="keywords" content="">
+	<title>Marketing Tool</title>
+	<link rel="shortcut icon" href="{% static 'marketing_tool_lead_manager_app_lead_manager_app/images/favicon.ico' %}" type="image/x-icon">
+	<!-- reset css -->
+	<link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/assets/css/css_reset.css' %}">
+	<!-- bootstrap -->
+	<link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/assets/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/assets/css/jquery.datetimepicker.min.css' %}">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="{% static 'marketing_tool_lead_manager_app/assets/css/bootstrap-select.min.css' %}">
+	<!-- preload -->
+	<link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/assets/css/loaders.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/assets/css/index.css' %}">
+	<style>
+		.mySlides {
+			display: none;
+		}
+
+	</style>
+	<style>
+		body {
+			margin: 0;
+		}
+
+		.topnav {
+			overflow: hidden;
+			background-color: #ffffff;
+		}
+
+		.topnav a {
+			float: left;
+			display: block;
+			color: #000000;
+			text-align: center;
+			margin-top:20px;
+			padding: 5px 16px;
+			text-decoration: none;
+			font-size: 17px;
+		}
+		.logo a{
+           padding-top: 0;
+           margin-top: 0;
+           margin-bottom: 0;
+           padding-bottom: 0;
+       }
+
+		.topnav a:hover {
+			background-color: #01add3;
+			color: white;
+		}
+
+		.topnav a.active {
+			background-color: #ffffff;
+			color: white;
+		}
+
+		.topnav .icon {
+			display: none;
+		}
+
+		@media screen and (max-width: 850px) {
+			.topnav a:not(:first-child) {
+				display: none;
+			}
+
+			.topnav a.icon {
+				float: right;
+				display: block;
+			}
+		}
+
+		@media screen and (max-width: 850px) {
+			.topnav.responsive {
+				position: relative;
+			}
+
+			.topnav.responsive .icon {
+				position: absolute;
+				right: 0;
+				top: 0;
+			}
+
+			.topnav.responsive a {
+				float: none;
+				display: block;
+				text-align: left;
+			}
+		}
+
+	</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:700&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Arizonia&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Kaushan+Script&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body class="">
+	<div class="topnav" id="myTopnav">
+		<span class="logo"><a href="https://www.gokruze.com" class="active" style="margin-left: 50px"><img src="{% static 'marketing_tool_lead_manager_app/images/GoKruzeLogo.png' %}" style="height: 80px;width: 180px"></a></span>
+		<a href="https://www.gokruze.com">HOME</a>
+		<a href="https://www.gokruze.com/web#feature">FEATURES</a>
+		<a href="https://www.gokruze.com/web/contactus">GET IN TOUCH</a>
+		<a href="https://www.gokruze.com/web/routes">ROUTES</a>
+		<a href="https://www.gokruze.com/web/blogs">BLOGS</a>
+		<a href="https://www.finityrndlab.app">SURVEY FORM</a>
+		<a href="https://www.gokruze.com/web/login" style="border: 1px solid green">LOGIN</a>
+		<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+			<i class="fa fa-bars"></i>
+		</a>
+	</div>
+	<!-- MAIN -->
+	<div class="wheel-start">
+		<img src="{% static 'marketing_tool_lead_manager_app/images/bg3.png' %}" alt="" class="wheel-img">
+		<div class="container padd-lr0">
+			<div class="col-lg-6 col-lg-push-6 ">
+				<header class="wheel-header marg-lg-b100 marg-lg-t10  marg-md-b0 marg-md-t0">
+					<div>
+						<div class="w3-content w3-section" style="max-width:500px">
+							<img class="mySlides" src="{% static 'marketing_tool_lead_manager_app/images/Slider1.png' %}" style="width:100%;height: 100%">
+							<img class="mySlides" src="{% static 'marketing_tool_lead_manager_app/images/Slider2.png' %}" style="width:100%;height: 100%">
+							<img class="mySlides" src="{% static 'marketing_tool_lead_manager_app/images/Slider3.png' %}" style="width:100%;height: 100%">
+						</div>
+					</div>
+
+				</header>
+			</div>
+
+			<div class="col-lg-6 col-lg-pull-6  padd-lr0">
+			    <div class="para">
+               <h3 style='color: white;padding: 0 30px 20px 30px;text-align: justify;font-family: sans-serif'>Please fill out the below Survey Form and our team will get in touch with you shortly</h3></div>
+				<div class="wheel-start-form">
+					<form action="{% url 'marketing_tool_lead_manager_app:home_form_submit' %}" method="post" onSubmit="alert('Thank you for registering. Our Team Will get back to you as soon as possible.');">
+						{% csrf_token %}
+						<div class="clearfix">
+							<div class="wheel-date">
+								<span>City</span>
+								<div>
+									<select class="aew" id='City' name='City' required>
+										<option disabled selected style="display: none">Select City</option>
+										<option>Mumbai</option>
+										<option>Pune</option>
+										<option>Kochi</option>
+										<option>Banglore</option>
+										<option>Calcutta</option>
+									</select>
+								</div>
+							</div>
+							<div class="wheel-date">
+								<span>Intrested In</span>
+								<div>
+									<select class="aew" id='Remark' name='Remark' required>
+										<option disabled selected style="display: none">Your Intrest</option>
+										<option>Nodal</option>
+										<option>Hub Cabs</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<label for="input-val1">
+							<div id="txtnm">Name</div>
+							<input type="text" id='Name' name='Name' placeholder="Enter Full Name" required>
+						</label>
+						<label for="input-val20">
+							<div id="pick">Gender</div>
+							<select class="aew" id='Gender' name='Gender' required style="width: 205px;font-weight: 100;font-style: italic">
+								<option disabled selected value="" style="display: none">
+									<p class="option_italic">Select Gender</p>
+								</option>
+								<option>Male</option>
+								<option>Female</option>
+								<option>Other</option>
+							</select>
+						</label>
+						<label for="input-val11">
+							<div id="email">Email</div>
+							<input type="text" id='user_Email_Id' name='user_Email_Id' pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" oninvalid="setCustomValidity('Invalid Email ID.Please Enter valid Email ID')" onchange="try{setCustomValidity('')}catch(e){}" placeholder="Enter Email" required>
+						</label>
+						<label for="input-val12">
+							<div id="no">Contact</div>
+							<input type="text" id='user_Contact_No' name='user_Contact_No' pattern="(7|8|9)\d{9}" oninvalid="setCustomValidity('Wrong Number.Please Enter Valid Number ')" onchange="try{setCustomValidity('')}catch(e){}" placeholder="Enter Contact Number" required>
+						</label>
+						<label for="input-val19">
+							<div id="company">Company</div>
+							<input type="text" id='user_Company_Name' name='user_Company_Name' placeholder="Enter Company Name" required>
+						</label>
+						<label for="input-val20">
+							<div id="pick">Pickup</div>
+							<select class="aew" id='LocationFrom' name='LocationFrom' required style="width: 205px;font-weight: 100;font-style: italic">
+								<option disabled selected value="" style="display: none">
+									<p class="option_italic">Select Pick Up Location</p>
+								</option>
+								{% for pickup_location in pickup_locations %}
+								<option value={{ pickup_location.pk }}>{{ pickup_location.Location_Name }}</option>
+								{% endfor %}
+							</select>
+						</label>
+						<label for="input-val21">
+							<div id="hub">Drop</div>
+							<select class="aew" id='LocationTo' name='LocationTo' required style="width: 205px;font-weight: 100;font-style: italic">
+								<option disabled selected value="" style="display: none">Select Drop Location</option>
+								{% for Drop_Location in Drop_Locations %}
+								<option value={{ Drop_Location.pk }} style="color: black">{{ Drop_Location.Drop_Name }}</option>
+								{% endfor %}
+							</select>
+						</label>
+						<div class="clearfix">
+							<div class="wheel-date">
+								<span>Log in time</span>
+								<div>
+									<select class="aew" id='LoginTime' name='LoginTime' required>
+										{% for login_time in login_time_list %}
+										<option value={{login_time.pk}}>{{login_time.Time}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+							<div class="wheel-date">
+								<span>Log out Time</span>
+								<div>
+									<select class="aew" id='LogoutTime' name='LogoutTime' required>
+											{% for logout_time in logout_time_list %}
+										<option value={{logout_time.pk}}>{{logout_time.Time}}</option>
+										{% endfor %}
+									</select>
+								</div>
+							</div>
+						</div>
+						<label for="input-val22">
+							<div id="expense">Expense</div>
+							<select class="aew" id='MonthlySpend' name='MonthlySpend' required style="width: 205px;font-weight: 100;font-style: italic">
+								<option disabled selected value="" style="display: none">Monthly Spend On Travel?</option>
+								<option>Less than Rs.1,000/ Month</option>
+								<option>Beetween Rs.1,000- Rs.2,000/Month</option>
+								<option>Beetween Rs.2,000- Rs.4,000/Month</option>
+								<option>More than Rs.4,000/Month</option>
+							</select>
+						</label>
+						<label for="input-val23">
+							<div id="commute">Commute</div>
+							<select class="aew" id='TravalToWork' name='TravalToWork' required style="width: 205px;font-weight: 100;font-style: italic">
+								<option disabled selected value="" style="display: none">Current Transport To Work?</option>
+								<option>Public Bus Service</option>
+								<option>Public Train Service</option>
+								<option>Shared Cab Service</option>
+								<option>Personal Car</option>
+								<option>Personal Motorcycle</option>
+								<option>Autorickshaw</option>
+								<option>Company Paid Transportation</option>
+							</select>
+						</label>
+						<label for="input-val22">
+							<div id="expense">About</div>
+							<select class="aew" id='HearAboutUs' name='HearAboutUs' required style="width: 205px;font-weight: 100;font-style: italic">
+								<option disabled selected value="" style="display: none">How did You Hear About us?</option>
+								<option>Social Media</option>
+								<option>Word of Mouth</option>
+								<option>Newspaper</option>
+								<option>Radio</option>
+								<option>Flyers</option>
+							</select>
+						</label>
+						<div>
+							<p style="color: white"> <input type="checkbox" required>&nbsp;&nbsp;I AGREE to sharing my information with Airoli HubConnect team for analysis of the services proposed by them.</p>
+						</div><br>
+						<button class="wheel-btn" id="input-val18">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<!-- ////////////////////////////////////////////////////////////// -->
+	<!-- FOOTER -->
+	<!-- ///////////////// -->
+	<div class="footer" style="background-color: #252525">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-7 col-sm-8  padd-lr0">
+					<div class="quick_links">
+						<h3 style="font-size: 22px;font-weight: 600;color: #0e61c7">QUICK LINKS</h3>
+						<ul>
+							<li><span style='font-size:20px;'>&#8250;</span><a href="https://www.gokruze.com">Home</a></li>
+							<li><span style='font-size:20px;'>&#8250;</span><a href="https://www.gokruze.com//web/aboutus">About Us</a></li>
+							<li><span style='font-size:20px;'>&#8250;</span><a href="https://www.gokruze.com//web/terms">Terms & Conditions</a></li>
+							<li><span style='font-size:20px;'>&#8250;</span><a href="https://www.gokruze.com//web/faq">FAQ</a></li>
+							<li><span style='font-size:20px;'>&#8250;</span><a href="https://www.gokruze.com//web/privacy_disclamer">Privacy & Disclaimer</a></li>
+							<li><span style='font-size:20px;'>&#8250;</span><a href="https://www.gokruze.com//web/refund">Refund & cancellation Policy</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-8 padd-lr0">
+					<div class="contact_us">
+						<h3 style="font-size: 22px;font-weight: 600;color: #0e61c7">CONTACT US</h3>
+						<ul>
+							<li><span style='font-size:20px;'>&#8250;</span><a href="tel:8080806989">8080806989</a></li>
+							<li><span style='font-size:20px;'>&#8250;</span><a href="mailto:info@gokruze.com">info@gokruze.com</a></li>
+						</ul>
+					</div>
+					<div class="follow">
+						<h3 style="font-size: 22px;font-weight: 600;color: #0e61c7">FOLLOW US ON</h3>
+						<ul>
+							<li><a href="https://plus.google.com/106042727201442753419/posts"><img src="{% static 'marketing_tool_lead_manager_app/images/google-plus.png' %}"></a></li>
+							<li><a href="https://twitter.com/gokruze"><img src="{% static 'marketing_tool_lead_manager_app/images/twitter.png' %}"></a></li>
+							<li><a href="https://www.facebook.com/gokruze"><img src="{% static 'marketing_tool_lead_manager_app/images/facebook.png' %}"></a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-2 col-sm-8 padd-lr0">
+					<img src="{% static 'marketing_tool_lead_manager_app/images/GoKruzeLogo.png' %}" height="200px" width="300px">
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Scripts project -->
+	<script type="text/javascript" src="{% static 'marketing_tool_lead_manager_app/assets/js/jquery-2.2.4.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'marketing_tool_lead_manager_app/assets/js/bootstrap.min.js' %}"></script>
+	<!-- count -->
+	<script type="text/javascript" src="{% static 'marketing_tool_lead_manager_app/assets/js/jquery.countTo.js' %}"></script>
+	<!-- google maps -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBt5tJTim4lOO3ojbGARhPd1Z3O3CnE-C8" type="text/javascript"></script>
+	<!-- swiper -->
+	<script type="text/javascript" src="{% static 'marketing_tool_lead_manager_app/assets/js/idangerous.swiper.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'marketing_tool_lead_manager_app/assets/js/equalHeightsPlugin.js' %}"></script>
+	<script type="text/javascript" src="{% static 'marketing_tool_lead_manager_app/assets/js/jquery.datetimepicker.full.min.js' %}"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script type="text/javascript" src="{% static 'marketing_tool_lead_manager_app/assets/js/bootstrap-select.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'marketing_tool_lead_manager_app/assets/js/index.js' %}"></script>
+	<!-- sixth block end -->
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+
+
+	<script>
+		var myIndex = 0;
+		carousel();
+
+		function carousel() {
+			var i;
+			var x = document.getElementsByClassName("mySlides");
+			for (i = 0; i < x.length; i++) {
+				x[i].style.display = "none";
+			}
+			myIndex++;
+			if (myIndex > x.length) {
+				myIndex = 1
+			}
+			x[myIndex - 1].style.display = "block";
+			setTimeout(carousel, 9000); // Change image every 9 seconds
+		}
+
+	</script>
+
+	<script>
+		function myFunction() {
+			var x = document.getElementById("myTopnav");
+			if (x.className === "topnav") {
+				x.className += " responsive";
+			} else {
+				x.className = "topnav";
+			}
+		}
+
+	</script>
+
+</body>
+
+</html>

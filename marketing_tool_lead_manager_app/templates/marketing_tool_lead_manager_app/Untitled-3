@@ -1,0 +1,54 @@
+#All Routes View
+def all_routes_experiment(request):
+    """All Routes Page of webapp
+    Parameters: HttpRequest object
+    Returns : Nothing"""
+    #Pickup Location Object Calling
+    leads=Leads.objects.all()
+    data = { 'routes_dict':dictionaries.routes_dict }
+    return render(request,'marketing_tool_lead_manager_app/routes_experiment.html',data)
+
+<zing-grid
+  caption="Employees"
+  columns-control
+  draggable
+  layout-controls
+  pager
+  page-size="4"
+  page-size-options="2,4,8"
+  search
+  sort
+  src="https://cdn.zinggrid.com/datasets/remote-data.json">
+</zing-grid>
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <title>ZingGrid Demo</title>
+		<script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+        <style>
+        html, body {
+	height:100%;
+	width:100%;
+	margin:0;
+	padding:0;
+}
+        </style>
+	</head>
+	<body>
+    <h3>`[typeUrlText]` sets the text for the 'url' column type.</h3>
+    <zing-grid caption="Social Media Platforms">
+      <zg-colgroup>
+        <zg-column index="location_from" header="Location From"></zg-column>
+        {% comment %} <zg-column index="url" header="Location To"></zg-column> {% endcomment %}
+{% comment %}         <zg-column index="login_time" header="Login Time"></zg-column>
+        <zg-column index="logout_time" header="Logout Time"></zg-column> {% endcomment %}
+        {% comment %} <zg-column index="url" header="Total Count" type="url" type-url-text="Click Here to Open"></zg-column> {% endcomment %}
+      </zg-colgroup>
+      <zg-data data={{routes_dict_list}}
+      ></zg-data>
+    </zing-grid>
+	</body>
+</html>

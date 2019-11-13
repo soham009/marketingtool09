@@ -1,0 +1,156 @@
+{% extends 'marketing_tool_lead_manager_app/base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<style>
+a {
+  text-decoration: none; 
+  color: inherit;
+}
+.less {
+    color: red;
+    }
+.between {
+    color: yellow;
+    }
+.more {
+    color: green;
+    }
+</style>
+{% endblock stylesheets %}
+
+
+{% block headscript %}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+{% endblock headscript %}
+{% block content %}
+<div>
+	<h4>All Routes</h4>
+	<hr>
+	<table id="myTable" class="display" style="width: 100%">
+		<thead>
+			<tr>
+				<th>Sr No.</th>
+				<th>Location From</th>
+				<th>Location To</th>
+				<th>Login Time</th>
+				<th>Logout Time</th>
+				<th>Total Collected</th>
+			</tr>
+			<tr>
+				<th>Sr No.</th>
+				<th>Location From</th>
+				<th>Location To</th>
+				<th>Login Time</th>
+				<th>Logout Time</th>
+				<th>Total Collected</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for key,value in routes_dict.items %}
+			<tr>
+				<td>{{ forloop.counter }}</td>
+				<td>{{ Pickup_Location_dict|get_item:key.0 }}</td>
+				<td>{{ drop_Location_dict|get_item:key.1 }}</td>
+				<td>{{ login_time_dict|get_item:key.2 }}</td>
+				<td>{{ logout_time_dict|get_item:key.3 }}</td>
+				<td><a href="{% url 'marketing_tool_lead_manager_app:leads_locationfrom_locationto_logintime_logouttime_dt' location_from=key.0 location_to=key.1 login_time=key.2 logout_time=key.3 %}"> {{value.0}} </a></td>
+			</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>Sr No.</th>
+				<th>Location From</th>
+				<th>Location To</th>
+				<th>Login Time</th>
+				<th>Logout Time</th>
+				<th>Total Collected</th>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+{% endblock %}
+
+
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+{% block script %}
+
+{% endblock %}
+{% block extrascript %}
+<script>
+	$(document).ready(function() {
+		$('#myTable').DataTable({
+			// "createdRow": function(row, data, dataIndex) {
+			// 	if (data[5] <= 10 )
+			// 	{
+			// 		$('td', row).css('color','red');
+			// 	}
+			// 	if (data[5] >= 11 && data[5] <= 15 ) 
+			// 	{
+			// 		$('td', row).css('color','yellow');
+            //     }
+			// 	if (data[5] >= 16 ) 
+			// 	{
+			// 		$('td', row).css('color','green');
+			// 	}}
+			// },,
+			orderCellsTop: true,
+			fixedHeader: true,
+			"lengthMenu": [
+				[-1],
+				["All"]
+			],
+		
+			initComplete: function() {
+				this.api().columns().every(function() {
+					var column = this;
+					var select = $('<select><option value=""></option></select>')
+						.appendTo($(column.header()).empty())
+						.on('change', function() {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+							);
+
+							column
+								.search(val ? '^' + val + '$' : '', true, false)
+								.draw();
+						});
+
+					column.data().unique().sort().each(function(d, j) {
+						select.append('<option value="' + d + '">' + d + '</option>')
+					});
+				});
+			}
+			
+		});
+	});
+
+</script>
+<script type="text/javascript">
+    $(function() 
+    {
+        
+        $(".update-lead").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });  
+         $(".delete-lead").each(function()
+          {
+            $(this).modalForm
+            ({
+                formURL: $(this).data('id')
+            });
+          });
+    });
+</script>
+{% endblock %}

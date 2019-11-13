@@ -1,0 +1,126 @@
+{% extends 'marketing_tool_lead_manager_app/base.html' %}
+{% load pickup_location_filter %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+{% endblock stylesheets %}
+
+{% block headscript %}
+{% endblock headscript %}
+
+{% block content %}
+<!-- Modal for CURD Operation -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content"></div>
+        </div>
+    </div>
+     <!-- PAGE CONTENT  -->
+
+<div>
+    <h4>Login Time<span style="float: right"><button class="signup-btn btn btn-info" type="button" name="button">Click here to Add Login Time</button></span></h4>
+
+    <hr>
+    <table id="myTable" class="display" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Login Time ID</th>
+                <th>Login Time</th>
+                <th>Change Time</th>
+                <th>Delete Login Time</th>
+            </tr>
+            <tr>
+                <th>Login Time ID</th>
+                <th>Login Time</th>
+                <th><center>Change Time</center></th>
+                <th><center>Delete Login Time</center></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for login in login_time %}
+            <tr>
+                <td>{{login.pk}}</td>
+                <td>{{login.Time}}</td>
+                <td> <center><button type="button" class="update-time btn btn-sm btn-primary" data-id={% url 'marketing_tool_lead_manager_app:update_login_time' login.pk  %}>
+                                <span class="fa fa-edit"></span>
+                            </button></center></td>
+                 <td><center><button class="delete-lead btn btn-sm btn-danger" data-id="{% url 'marketing_tool_lead_manager_app:delete_login_time' login.pk %}">
+                <span class="fa fa-trash"></span></button></center></td> 
+
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+{% block script %}
+
+{% endblock %}
+{% block extrascript %}
+<script>
+	$(document).ready(function() {
+		$('#myTable').DataTable({
+			orderCellsTop: true,
+			fixedHeader: true,
+			"lengthMenu": [
+				[-1],
+				["All"]
+			],
+			initComplete: function() {
+				this.api().columns().every(function() {
+					var column = this;
+					var select = $('<select><option value=""></option></select>')
+						.appendTo($(column.header()).empty())
+						.on('change', function() {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+							);
+
+							column
+								.search(val ? '^' + val + '$' : '', true, false)
+								.draw();
+						});
+
+					column.data().unique().sort().each(function(d, j) {
+						select.append('<option value="' + d + '">' + d + '</option>')
+					});
+				});
+			}
+		});
+	});
+
+</script>
+<script type="text/javascript">
+    $(function() {
+        $(".signup-btn").modalForm({formURL: "{% url 'marketing_tool_lead_manager_app:Add_logout' %}"});
+
+        $(".update-time").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".delete-lead").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+        $(".read-location").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });
+    });
+</script>
+
+{% endblock %}

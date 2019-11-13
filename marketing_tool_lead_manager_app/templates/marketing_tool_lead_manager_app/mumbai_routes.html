@@ -1,0 +1,93 @@
+{% extends 'marketing_tool_lead_manager_app/base.html' %}
+{% load pickup_location_filter %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block headscript %}
+{% endblock headscript %}
+
+{% block content %}
+<div>
+    <h4>Mumbai Routes</h4>
+    <hr>
+    <table id="myTable" class="display" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Sr No.</th>
+                <th>Location From</th>
+                <th>Location To</th>
+                <th>Login Time</th>
+                <th>Logout Time</th>
+                <th>Total Leads</th>
+            </tr>
+            <tr>
+                <th>Sr No.</th>
+                <th>Location From</th>
+                <th>Location To</th>
+                <th>Login Time</th>
+                <th>Logout Time</th>
+                <th>Total Leads</th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for key,value in routes_dict.items %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ Pickup_Location_dict|get_item:key.0 }}</td>
+                <td>{{ drop_Location_dict|get_item:key.1 }}</td>
+                <td>{{ login_time_dict|get_item:key.2 }}</td>
+                <td>{{ logout_time_dict|get_item:key.3 }}</td>
+                <td>1</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Sr No.</th>
+                <th>Location From</th>
+                <th>Location To</th>
+                <th>Login Time</th>
+                <th>Logout Time</th>
+                <th>Total Leads</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            orderCellsTop: true,
+                fixedHeader: true,
+                "lengthMenu": [
+                    [-1],
+                    ["All"]
+                ],
+            initComplete: function() {
+                this.api().columns().every(function() {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.header()).empty())
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

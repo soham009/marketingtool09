@@ -1,0 +1,302 @@
+{% extends 'marketing_tool_lead_manager_app/base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+<style>
+    hr {
+        background-color: black;
+    }
+
+    .card-title,
+    .card-text {
+        text-align: center;
+        color: white;
+    }
+
+    .container {
+        position: relative;
+        left: 100px;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block headscript %}
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+{% endblock headscript %}
+
+
+{% block content %}
+<div>
+    <h3>Counts By Status</h3>
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <div class="card bg-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">All Leads</h5>
+                        <h2 class="card-text">{{lead_count}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card bg-danger">
+                    <div class="card-body">
+                        <h5 class="card-title">Uncontacted</h5>
+                        <h2 class="card-text">{{uncontacted_count}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card bg-info">
+                    <div class="card-body">
+                        <h5 class="card-title">Interested</h5>
+                        <h2 class="card-text">{{interested_count}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card bg-success">
+                    <div class="card-body">
+                        <h5 class="card-title">Converted</h5>
+                        <h2 class="card-text">{{converted_count}}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="card bg-dark">
+                    <div class="card-body">
+                        <h5 class="card-title">Undecided</h5>
+                        <h2 class="card-text">{{undecided_count}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr><br><br>
+        <div>
+            <hr>
+            <h4>Users Wise Counts</h4>
+            <hr>
+            <table id="myTable" class="display" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>User Name</th>
+                        <th>User Email</th>
+                        <th>Interested</th>
+                        <th>Converted</th>
+                        <th>Undecided</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   {% for user in users %}
+                <tr>
+                    <td>{{user.pk}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.email}}</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>User ID</th>
+                        <th>User Name</th>
+                        <th>User Email</th>
+                        <th>Interested</th>
+                        <th>Converted</th>
+                        <th>Undecided</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div><br><br><br>
+        <hr>
+        <div>
+            <div id="Location_from_wise" style="height: 400px; width: 100%"></div>
+
+            <hr><br>
+
+            <div id="Location_to_wise" style="height: 400px; width: 100%"></div>
+
+            <hr><br>
+
+            <div id="User_converted_wise" style="height: 400px; width: 100%"></div>
+
+            <hr><br>
+
+        </div>
+{% endblock %}
+
+
+{% block script %}
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            orderCellsTop: true,
+            fixedHeader: true,
+            "lengthMenu": [
+                [-1],
+                ["All"]
+            ],
+            initComplete: function() {
+                this.api().columns().every(function() {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.header()).empty())
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    window.onload = function() {
+
+        var location_from = new CanvasJS.Chart("Location_from_wise", {
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            exportEnabled: true,
+            animationEnabled: true,
+            title: {
+                text: "Leads Graph By Location From"
+            },
+            data: [{
+                type: "pie",
+                startAngle: 25,
+                toolTipContent: "<b>{label}</b>: {y}%",
+                showInLegend: "true",
+                legendText: "{label}",
+                indexLabelFontSize: 16,
+                indexLabel: "{label} - {y}%",
+                dataPoints: [{
+                        y: 51.08,
+                        label: "Mumbai"
+                    },
+                    {
+                        y: 27.34,
+                        label: "Delhi"
+                    },
+                    {
+                        y: 10.62,
+                        label: "Banglore"
+                    },
+                    {
+                        y: 5.02,
+                        label: "Pune"
+                    },
+                    {
+                        y: 4.07,
+                        label: "Ahmedabad"
+                    },
+                    {
+                        y: 1.66,
+                        label: "Other"
+                    },
+
+                ]
+            }]
+        });
+        location_from.render();
+
+        var location_to = new CanvasJS.Chart("Location_to_wise", {
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            exportEnabled: true,
+            animationEnabled: true,
+            title: {
+                text: "Leads Graph By Location To"
+            },
+            data: [{
+                type: "pie",
+                startAngle: 25,
+                toolTipContent: "<b>{label}</b>: {y}%",
+                showInLegend: "true",
+                legendText: "{label}",
+                indexLabelFontSize: 16,
+                indexLabel: "{label} - {y}%",
+                dataPoints: [{
+                        y: 51.08,
+                        label: "Tcs"
+                    },
+                    {
+                        y: 27.34,
+                        label: "LTI"
+                    },
+                    {
+                        y: 10.62,
+                        label: "Accenture"
+                    },
+                    {
+                        y: 5.02,
+                        label: "Axis Bank"
+                    },
+                    {
+                        y: 4.07,
+                        label: "Infosys"
+                    },
+                    {
+                        y: 1.66,
+                        label: "Other"
+                    },
+
+                ]
+            }]
+        });
+        location_to.render();
+
+
+        var user_converted = new CanvasJS.Chart("User_converted_wise", {
+            theme: "light2", // "light1", "light2", "dark1", "dark2"
+            exportEnabled: true,
+            animationEnabled: true,
+            title: {
+                text: "Leads Graph By User Converted"
+            },
+            data: [{
+                type: "pie",
+                startAngle: 25,
+                toolTipContent: "<b>{label}</b>: {y}%",
+                showInLegend: "true",
+                legendText: "{label}",
+                indexLabelFontSize: 16,
+                indexLabel: "{label} - {y}%",
+                dataPoints: [{
+                        y: 51.08,
+                        label: "Glen"
+                    },
+                    {
+                        y: 32.34,
+                        label: "Sam"
+                    },
+                    {
+                        y: 13.89,
+                        label: "Amit"
+                    },
+
+                    {
+                        y: 2.69,
+                        label: "Sangram"
+                    },
+
+                ]
+            }]
+        });
+        user_converted.render();
+
+    }
+</script>
+{% endblock %}

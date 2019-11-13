@@ -1,0 +1,167 @@
+{% extends 'marketing_tool_lead_manager_app/base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+{% endblock stylesheets %}
+
+
+{% block headscript %}
+<script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+
+{% endblock headscript %}
+
+{% block content %}
+{% include "marketing_tool_lead_manager_app/add_new_leads.html" %}
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content"></div>
+	</div>
+</div>
+<hr>
+<h3>Lead Details<span> <button class="update-lead btn btn-primary" style="float:right" data-toggle="modal" data-target="#add_status">Add New Update</button>
+	</span></h3>
+
+
+<hr>
+
+<div>
+	<table width=100% style="border-color:#808080;">
+		<tr>
+			<th style="padding: 20px;">City</th>
+			<td style="padding: 20px;">{{ leads.City }}</td>
+		</tr>
+		<tr>
+			<th style="padding: 20px;">CompanyName</th>
+			<td style="padding: 20px;">{{ leads.CompanyName }}</td>
+		</tr>
+		<tr>
+			<th style="padding: 20px;">Name</th>
+			<td style="padding: 20px;">{{ leads.Name }}</td>
+		</tr>
+		<tr>
+			<th style="padding: 20px;">EmailId</th>
+			<td style="padding: 20px;">{{ leads.EmailId }}</td>
+		</tr>
+		<tr>
+			<th style="padding: 20px;">ContactNo</th>
+			<td style="padding: 20px;">{{ leads.ContactNo }}</td>
+		</tr>
+		<tr>
+			<th style="padding: 20px;">Lead_Status</th>
+			<td style="padding: 20px;">{{ leads.Lead_Status }}</td>
+		</tr>
+	</table>
+	<hr>
+	<h3>Lead Status Updates</h3>
+	<hr>
+	{% if leadstatus %}
+	<table id="myTable" class="display" width=100%>
+		<thead>
+			<tr>
+				<th>Date of Update</th>
+				<th>Update Added By</th>
+				<th>Next Follow up Date</th>
+				<th>Status</th>
+				<th>Remark</th>
+				<th>Product Interested In</th>
+				<th>Update</th>
+				<th>Delete</th>
+			</tr>
+			<tr>
+				<th>Date of Update</th>
+				<th>Update Added By</th>
+				<th>Next Follow up Date</th>
+				<th>Status</th>
+				<th>Remark</th>
+				<th>Product Interested In</th>
+				<th>Update</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for data in leadstatus %}
+			<tr>
+                <td>{{ data.lead_comment_create_date }}</td>
+				<td>{{ data.lead_comment_updated_by }}</td>
+                <td>{{ data.lead_comment_next_followup_date }}</td>
+				<td>{{ data.lead_comment_name }}</td>
+				<td>{{ data.lead_comment_remark }}</td>
+				<td>{{ data.lead_comment_product_interested_in }}</td>
+				<td><button class="update-lead btn btn-primary" data-id="{% url 'marketing_tool_lead_manager_app:updatelead' data.pk %}">Update</button></td>
+				<td><button class="delete-lead btn btn-sm btn-danger" data-id="{% url 'marketing_tool_lead_manager_app:deletelead' data.pk %}">Delete</button></td>
+			</tr>
+			{% endfor %}
+		<tbody>
+	</table>
+	{% else %}
+	<p class="no-leads text-primary">No entry added yet.</p>
+	{% endif %}
+</div>
+{% endblock %}
+<script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/fixedheader/3.1.5/js/dataTables.fixedHeader.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+{% block script %}
+
+{% endblock %}
+{% block extrascript %}
+<script>
+	$(document).ready(function() {
+		$('#myTable').DataTable({
+			orderCellsTop: true,
+			fixedHeader: true,
+			"lengthMenu": [
+				[-1],
+				["All"]
+			],
+			initComplete: function() {
+				this.api().columns().every(function() {
+					var column = this;
+					var select = $('<select><option value=""></option></select>')
+						.appendTo($(column.header()).empty())
+						.on('change', function() {
+							var val = $.fn.dataTable.util.escapeRegex(
+								$(this).val()
+							);
+
+							column
+								.search(val ? '^' + val + '$' : '', true, false)
+								.draw();
+						});
+
+					column.data().unique().sort().each(function(d, j) {
+						select.append('<option value="' + d + '">' + d + '</option>')
+					});
+				});
+			}
+		});
+	});
+
+</script>
+<script type="text/javascript">
+    $(function() 
+    {
+        
+        $(".update-lead").each(function() {
+            $(this).modalForm({
+                formURL: $(this).data('id')
+            });
+        });  
+         $(".delete-lead").each(function()
+          {
+            $(this).modalForm
+            ({
+                formURL: $(this).data('id')
+            });
+          });
+    });
+</script>
+{% endblock %}

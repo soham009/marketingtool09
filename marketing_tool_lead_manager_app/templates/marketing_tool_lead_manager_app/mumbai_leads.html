@@ -1,0 +1,117 @@
+{% extends 'marketing_tool_lead_manager_app/base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block headscript %}
+{% endblock headscript %}
+
+{% block content %}
+<div>
+  <h4>Mumbai Leads</h4>
+        <hr>
+        <table id="myTable" class="display" style="width: 100%">
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Name</th>
+                    <th>Email ID</th>
+                    <th>Contact No</th>
+                    <th>Location From</th>
+                    <th>Location To</th>
+                    <th>Login Time</th>
+                    <th>Logout Time</th>
+                    <th>Company Name</th>
+                    <th>More Details</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Name</th>
+                    <th>Email ID</th>
+                    <th>Contact No</th>
+                    <th>Location From</th>
+                    <th>Location To</th>
+                    <th>Login Time</th>
+                    <th>Logout Time</th>
+                    <th>Company Name</th>
+                    <th>More Details</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                    {% for lead in leads %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ lead.Name }}</td>
+                    <td>{{ lead.EmailId }}</td>
+                    <td>{{ lead.ContactNo }}</td>
+                    <td>{{ lead.Pickup_Location_id }}</td>
+                    <td>{{ lead.Drop_Location_id }}</td>
+                    <td>{{ lead.Login_Time_id }}</td>
+                    <td>{{ lead.Logout_Time_id }}</td>
+                    <td>{{ lead.CompanyName }}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Name</th>
+                    <th>Email ID</th>
+                    <th>Contact No</th>
+                    <th>Location From</th>
+                    <th>Location To</th>
+                    <th>Login Time</th>
+                    <th>Logout Time</th>
+                    <th>Company Name</th>
+                    <th>More Details</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}
+
+   {% block script %}
+   
+    <script>
+        $(document).ready(function() {
+            $('#myTable').DataTable({
+                orderCellsTop: true,
+                fixedHeader: true,
+                "lengthMenu": [
+                    [-1],
+                    ["All"]
+                ],
+                initComplete: function() {
+                    this.api().columns().every(function() {
+                        var column = this;
+                        var select = $('<select><option value=""></option></select>')
+                            .appendTo($(column.header()).empty())
+                            .on('change', function() {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function(d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

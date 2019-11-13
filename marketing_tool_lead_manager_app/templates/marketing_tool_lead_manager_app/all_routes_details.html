@@ -1,0 +1,90 @@
+{% extends 'marketing_tool_lead_manager_app/base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block headscript %}
+{% endblock headscript %}
+
+{% block content %}
+<div>
+    <h4>Leads Based on Location From - Location To , Login Time -Logout Time</h4>
+    <hr>
+    <table id="myTable" class="display" style="width: 100%">
+        <thead>
+            <tr>
+                <th>Sr No.</th>
+                <th>Total Leads</th>
+                <th>Uncontacted</th>
+                <th>Interested</th>
+                <th>Converted</th>
+                <th>Undecided</th>
+            </tr>
+            <tr>
+                <th>Sr No.</th>
+                <th>Total Leads</th>
+                <th>Uncontacted</th>
+                <th>Interested</th>
+                <th>Converted</th>
+                <th>Undecided</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Sr No.</th>
+                <th>Total Leads</th>
+                <th>Uncontacted</th>
+                <th>Interested</th>
+                <th>Converted</th>
+                <th>Undecided</th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            orderCellsTop: true,
+                fixedHeader: true,
+                "lengthMenu": [
+                    [-1],
+                    ["All"]
+                ],
+            initComplete: function() {
+                this.api().columns().every(function() {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                        .appendTo($(column.header()).empty())
+                        .on('change', function() {
+                            var val = $.fn.dataTable.util.escapeRegex(
+                                $(this).val()
+                            );
+
+                            column
+                                .search(val ? '^' + val + '$' : '', true, false)
+                                .draw();
+                        });
+
+                    column.data().unique().sort().each(function(d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends 'marketing_tool_lead_manager_app/base_b2b.html' %}
+{% load static %}
+
+{% block stylesheets %}
+{% endblock stylesheets %}
+
+{% block headscript %}
+<style>
+	.lead_form {
+		padding: 0 10px;
+	}
+
+	.blue {
+		color: blue;
+	}
+</style>
+{% endblock headscript %}
+
+{% block content %}
+<div class="lead_form">
+	<h3>Please fill the form below of company leads</h3>
+	<hr>
+	<form action="{% url 'marketing_tool_lead_manager_app:company_lead_form_submit' %}" method="post" onSubmit="alert('Registered Lead. Thank You');">
+		{% csrf_token %}
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="kruze_rep">Kruze Rep</label>
+				<select id="company_leads_added_by" name="company_leads_added_by" class="form-control">
+					<option selected disabled style="display: none"> Select Kruze Rep</option>
+					
+					<option value=1>{{username}}</option>
+					
+				</select>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="locality">Locality</label>
+				<select id="company_leads_pickup_location_id" name="company_leads_pickup_location_id" class="form-control">
+					<option selected disabled style="display: none"> Select Locality</option>
+					{% for pickup_location in pickup_locations %}
+					<option value={{ pickup_location.pk }}>{{ pickup_location.Location_Name }}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-4">
+				<label for="corporate_hub">Corporate Hub</label>
+				<input type="text" class="form-control" id="company_leads_corporate_hub" name="company_leads_corporate_hub">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="company_name">Company Name</label>
+				<input type="text" class="form-control" id="company_leads_company_name" name="company_leads_company_name">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="employee_strength">Employee strength</label>
+				<input type="number" class="form-control" id="company_leads_employee_strength" name="company_leads_employee_strength">
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="login_time">Login Time</label>
+				<select id="company_leads_login_time" name="company_leads_login_time" class="form-control">
+					{% for login_time in login_time_list %}
+					<option value={{login_time.pk}}>{{login_time.Time}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="form-group col-md-6">
+				<label for="logout_time">Logout Time</label>
+				<select id="company_leads_logout_time" name="company_leads_logout_time" class="form-control">
+					{% for logout_time in logout_time_list %}
+					<option value={{logout_time.pk}}>{{logout_time.Time}}</option>
+					{% endfor %}
+				</select>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="contact_person" class="blue">Contact Person</label>
+				<input type="text" class="form-control" id="company_leads_contact_person" name="company_leads_contact_person">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="designation" class="blue">Contact Person Designation</label>
+				<input type="text" class="form-control" id="company_leads_designation" name="company_leads_designation">
+			</div>
+		</div>
+
+		<div class="form-row">
+			<div class="form-group col-md-6">
+				<label for="contact_number" class="blue">Contact Number</label>
+				<input type="text" class="form-control" id="company_leads_contact_mobile" name="company_leads_contact_mobile">
+			</div>
+			<div class="form-group col-md-6">
+				<label for="email_id" class="blue">Email ID</label>
+				<input type="email" class="form-control" id="company_leads_contact_email" name="company_leads_contact_email">
+			</div>
+		</div>
+		<br>
+		<button type="submit" class="btn btn-success btn-block">Save</button>
+	</form>
+</div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

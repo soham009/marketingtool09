@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+
+    <title>Marketing Tool</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+     <!-- jQuery Custom Scroller CDN -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/css/bootstrap.min.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/DataTables/datatables.min.css' %}" />
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+     
+    <script type="text/javascript" src="{% static 'marketing_tool_lead_manager_app/DataTables/datatables.min.js' %}"></script>
+   
+    {% block stylesheets %}
+   {% endblock stylesheets %}
+    {% block headscript %}
+   {% endblock headscript %}
+    <style>
+        hr {
+            background-color: black;
+        }
+    </style>
+    <style>
+        #colmn {
+            width: 1000px;
+        }
+ 
+        thead input {
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #1f5b99">
+        <a class="navbar-brand" href="#" style="color: #ffffff;font-weight: bold">MARKETING TOOL</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'marketing_tool_lead_manager_app:company_lead_form' %}" style="color: #ffffff"> Leads Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'marketing_tool_lead_manager_app:company_lead_data' %}" style="color: #ffffff"> Leads Data</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'marketing_tool_lead_manager_app:company_lead_report' %}" style="color: #ffffff"> Leads Report</a>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" action="{% url 'marketing_tool_lead_manager_app:lead_zing_grid_list' %}">
+                  <a href="#"><button class="btn btn-success my-2 my-sm-0" style="margin-left:10px">Switch B2C</button></a>
+                     </form>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-success my-2 my-sm-0" type="submit">Logout</button>
+            </form>
+        </div>
+    </nav><br><br><br>
+    {% block content %}
+   {% endblock %}
+
+   {% block script %}
+   {% endblock %}
+    
+   {% block extrascript %}
+   {% endblock %}
+    </body>
+</html>

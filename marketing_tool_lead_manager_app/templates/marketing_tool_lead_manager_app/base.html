@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+
+    <title>Marketing Tool</title>
+
+<!-- Bootstrap CSS CDN -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<!-- Our Custom CSS -->
+
+    <link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/css/bootstrap.min.css' %}" />
+
+    <link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/DataTables/datatables.min.css' %}" />
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+	<!-- jQuery CDN - Slim version (=without AJAX) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<!-- Popper.JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+	<!-- Bootstrap JS -->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+	<!-- jQuery Custom Scroller CDN -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+	<!-- Font Awesome JS -->
+	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+
+
+
+    {% block stylesheets %}
+   {% endblock stylesheets %}
+    {% block headscript %}
+   {% endblock headscript %}
+    <style>
+        hr {
+            background-color: black;
+        }
+    </style>
+    <style>
+        #colmn {
+            width: 1000px;
+        }
+ 
+        thead input {
+            width: 100%;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #1f5b99">
+        <a class="navbar-brand" href="#" style="color: #ffffff;font-weight: bold">MARKETING TOOL</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+{% comment %}                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'marketing_tool_lead_manager_app:summary' %}" style="color: #ffffff">Summary</a>
+                </li> {% endcomment %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ffffff">
+                        Leads
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'marketing_tool_lead_manager_app:lead_zing_grid_list' %}">All Leads</a>
+                        <a class="dropdown-item" href="{% url 'marketing_tool_lead_manager_app:lead_zing_grid_list_mumbai' %}">Mumbai Leads</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ffffff">
+                        Routes
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'marketing_tool_lead_manager_app:routes' %}">All Routes</a>
+                        <a class="dropdown-item" href="{% url 'marketing_tool_lead_manager_app:leads_routes' %}">Mumbai Routes</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ffffff">
+                        Locations
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'marketing_tool_lead_manager_app:location_from' %}">Location From</a>
+                        <a class="dropdown-item" href="{% url 'marketing_tool_lead_manager_app:location_to' %}">Location To</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: #ffffff">
+                        Shift Time
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{% url 'marketing_tool_lead_manager_app:login_time' %}">Login Time</a>
+                        <a class="dropdown-item" href="{% url 'marketing_tool_lead_manager_app:logout_time' %}">Logout Time</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'marketing_tool_lead_manager_app:users' %}" style="color: #ffffff">Users</a>
+                </li>
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0" action="{% url 'marketing_tool_lead_manager_app:company_lead_form' %}">
+                  <a href="#"><button class="btn btn-success my-2 my-sm-0" style="margin-left:10px">Switch B2C</button></a>
+                     </form>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="{% url 'marketing_tool_lead_manager_app:Login' %}">
+                <button class="btn btn-success my-2 my-sm-0" type="submit">Logout</button>
+            </form>
+        </div>
+    </nav><br><br><br>
+    {% block content %}
+   {% endblock %}
+
+   {% block script %}
+   {% endblock %}
+    
+   {% block extrascript %}
+   {% endblock %}
+    </body>
+</html>

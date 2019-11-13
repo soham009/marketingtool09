@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    {% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/css/iofrm-style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'marketing_tool_lead_manager_app/css/iofrm-theme5.css' %}">
+    {% endblock stylesheets %}
+    
+    {% block headscript %}
+    <script src="{% static 'marketing_tool_lead_manager_app/js/jquery.min.js' %}"></script>
+    <script src="{% static 'marketing_tool_lead_manager_app/js/popper.min.js' %}"></script>
+    <script src="{% static 'marketing_tool_lead_manager_app/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'marketing_tool_lead_manager_app/js/main.js' %}"></script>
+    {% endblock headscript %} 
+</head>
+
+<body style="background-color: #1B4965 !important;">
+    <div class="row">
+        <div class="form-holder" style="background-color: #1B4965 !important;">
+            <div class="form-content" style="background-color: #1B4965 !important;">
+                <div class="form-items">
+                <h3>Welcome to Marketing Tool.</h3>
+                    <p>Please enter your details to Login </p>
+                    <div class="page-links">
+                        <a href="{% url 'marketing_tool_lead_manager_app:Login' %}" class="active">Login</a>
+                    </div>
+                    <form method="post" action="{% url 'marketing_tool_lead_manager_app:Login' %}">
+                        {% csrf_token %}
+                        <input class="form-control" type="text" name="username" placeholder="Username" id="username" name="username" required>
+                        <input class="form-control" type="password" name="password" placeholder="Password" id="password" name="password" required>
+                        <div class="form-button">
+                            <button id="submit" type="submit" class="ibtn">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>    
